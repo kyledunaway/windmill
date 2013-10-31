@@ -1,14 +1,18 @@
-main: main.o windmill.o cube.o
-	g++ -Wall -g InitShader.cpp -framework OpenGL -framework GLUT -o main main.o cube.o windmill.o
+CC = g++
+CFLAGS = -Wall -pedantic -g
+LDFLAGS = -lglut -lGLEW -lGLU -lGL -lm
 
-main.o: main.cpp cube.h
-	g++ -Wall -g -c main.cpp
+main: main.o windmill.o cube.o InitShader.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-windmill.o: windmill.cpp windmill.h
-	g++ -Wall -g -c windmill.cpp
+main.o: main.cpp InitShader.cpp Angel.h
+	$(CC) $(CFLAGS) -c main.cpp InitShader.cpp $(LDFLAGS)
 
-cube.o: cube.h cube.cpp
-	g++ -Wall -g -c cube.cpp
+windmill.o: windmill.cpp windmillh
+	$(CC) $(CFLAGS) -c $<
+
+cube.o: cube.cpp cube.h
+	$(CC) $(CFLAGS) -c cube.cpp InitShader.cpp $(LDFLAGS)
 
 clean:
-	rm -f main main.o cube.o main.o
+	rm -f *.o main
