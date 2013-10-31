@@ -1,7 +1,27 @@
+/**
+* Windmill
+* CSCI 566
+* Kyle Dunaway
+* CSC Chico
+* 
+* 
+* windmill.cpp
+*
+**/
+
 #include <iostream>
-#include <vector>
 #include "windmill.h"
 using namespace std;
+
+
+
+/**
+*  Windmill constructor that makes the unit cube to be passed
+*  to each cube object.
+*
+*  Creats the blades and post for the windmill.
+*  Sets the windmill to spinning when started.
+**/
 Windmill::Windmill() 
 {
     unitCube[0]  = vec3(-0.01,  0.01,  0.01);
@@ -50,9 +70,21 @@ Windmill::Windmill()
     isSpinning = true;
 }
 
+/**
+*  Windmill Destructor 
+**/
 Windmill::~Windmill() 
 {}
 
+
+/**
+*  void Windmill::initWindmill()
+*
+*  places the post and blades to the desired rotation.
+*  I tried using the scale numbers on the program description and
+*  they seemed too small, so these are the numbers that worked
+*  after some trial and error.
+**/
 void Windmill::initWindmill() 
 {
   post->setRotation(RotateZ(0));
@@ -88,6 +120,15 @@ void Windmill::initWindmill()
 
 }
 
+
+/**
+*   void Windmill::display()
+*
+*   glClear based on program description.
+*
+*   if spinning, spins the blades
+* 
+**/
 void Windmill::display() {
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -109,6 +150,13 @@ void Windmill::display() {
   glutSwapBuffers();
 }
 
+
+/**
+ *   void Windmill::keyboard(unsigned char keycode, int x, int y)
+ *   @param keycode [key pressed]
+ *   @param x       
+ *   @param y       
+ */
 void Windmill::keyboard(unsigned char keycode, int x, int y) 
 {
     switch(keycode) {
@@ -142,6 +190,11 @@ void Windmill::keyboard(unsigned char keycode, int x, int y)
     }
 }
 
+
+/**
+*   void Windmill::timer
+*   calls display for the windmill on each timer call.
+**/
 void Windmill::timer()
 {
     display();
